@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --background-start-rgb: 245, 245, 245;
+  --background-end-rgb: 245, 245, 255;
+  --foreground-rgb: 30, 30, 30;
+  --font-family: sans-serif;
+}
+
+* {
+  font-family: var(--font-family);
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
+  color: rgb(var(--foreground-rgb));
+}/*# sourceMappingURL=index.css.map */

@@ -1,15 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { sendToVercelAnalytics } from './vitals';
+import Products from './pages/Products';
+import './styles/index.css';
+
+const router = createBrowserRouter([
+  {
+    path: '/', //root,
+    element: <App />
+  },
+  {
+    path: '/products', //root,
+    element: <Products />
+  },
+])
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-reportWebVitals(sendToVercelAnalytics);
