@@ -4,8 +4,9 @@ export class UsuarioController {
   _service = new UsuarioService()
 
   async create(req, res) {
-    console.log(req.body)
     // const novoUsuario = await this._service.create(req.body)
-    res.status(201).json(req.body)
+    // console.log(req.body)
+    res.status(201).json(req)
+    // res.status(201).json('ok')
   }
 }
