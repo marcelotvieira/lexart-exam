@@ -1,0 +1,68 @@
+### Registro e Login ###
+POST /auth/register
+Content-Type: application/json
+
+{
+  "nome": "João",
+  "username": "usuario",
+  "password": "senha"
+}
+
+### Autenticação ###
+POST /auth/login
+Content-Type: application/json
+
+{
+  "username": "usuario",
+  "password": "senha"
+}
+
+### CRUD de Produtos ###
+
+# Create
+POST /products
+Content-Type: application/json
+Authorization: Bearer {TOKEN}
+
+{
+  "name": "Produto 1",
+  "description": "Descrição do Produto 1",
+  "price": 9.99
+}
+
+# Read
+GET /products
+Authorization: Bearer {TOKEN}
+
+# Update
+PUT /products/:id
+Content-Type: application/json
+Authorization: Bearer {TOKEN}
+
+{
+  "name": "Novo nome do Produto",
+  "description": "Nova descrição do Produto",
+  "price": 19.99
+}
+
+# Delete
+DELETE /products/:id
+Authorization: Bearer {TOKEN}
+
+### Rotas Exclusivas para Clientes Externos ###
+
+# Rota externa para Consumir Produtos
+GET http://sua-api.com/external/products
+Authorization: Bearer {TOKEN}
+
+
+# Rota externa para Inserir Produtos
+POST http://sua-api.com/external/products
+Content-Type: application/json
+Authorization: Bearer {TOKEN}
+
+{
+  "name": "Novo Produto",
+  "description": "Descrição do Novo Produto",
+  "price": 29.99
+}

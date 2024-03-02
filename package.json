@@ -5,10 +5,15 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
     "express": "^4.18.3",
+    "express-rescue": "^1.2.0",
+    "http-status-codes": "^2.3.0",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.2",
     "react-scripts": "5.0.1",
+    "sequelize": "^6.37.1",
     "web-vitals": "^3.0.4"
   },
   "scripts": {
@@ -34,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.2"
   }
 }
