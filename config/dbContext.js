@@ -1,8 +1,11 @@
+import * as pg from 'pg';
 import { Sequelize } from "sequelize";
 
 const connectionString = process.env.POSTGRES_URL
 
-const sequelize = new Sequelize(connectionString)
+const sequelize = new Sequelize(connectionString, {
+  dialectModule: pg
+})
 
 try {
   const test = async () => {

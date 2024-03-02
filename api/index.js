@@ -7,6 +7,7 @@ app.get('/api/health', (req, res) => res.json('ok'))
 
 app.use(usuarioRouter)
 app.use(ApiError.handler)
+
 app.listen()
 
 export default app
