@@ -4,7 +4,7 @@ import { ApiError } from './error/ApiError'
 import usuarioRouter from './routes/usuario'
 const app = e()
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 app.get('/api/health', (req, res) => res.json('ok'))
 
 
