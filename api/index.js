@@ -6,7 +6,7 @@ const app = e()
 
 app.use(bodyParser.json())
 
-app.get('/api/health', (req, res) => res.json('ok'))
+app.get('/api/health', (req, res) => res.json({ status: 'OK' }))
 
 // ROUTES
 app.use(usuarioRouter)
