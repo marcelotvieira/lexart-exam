@@ -4,10 +4,11 @@ import { ApiError } from './error/ApiError'
 import usuarioRouter from './routes/usuario'
 const app = e()
 
-app.use(bodyParser.json())
+app.use(bodyParser.json({ type: 'application/*+json' }))
+
 app.get('/api/health', (req, res) => res.json('ok'))
 
-
+// ROUTES
 app.use(usuarioRouter)
 
 app.use(ApiError.handler)
