@@ -14,4 +14,11 @@ app.all(
 
 app.use(ApiError.handler)
 
+export const config = {
+  api: {
+    externalResolver: true,
+    bodyParser: true,
+  },
+}
+
 export default app
