@@ -13,12 +13,15 @@ export class ApiError extends Error {
 
   static handler(error, _req, res, _next) {
     if (error instanceof ApiError) {
-      return res.status(error.statusCode).json({ message: error.message })
+      return res.status(error.statusCode).json({
+        message: error,
+        details: error.message
+      })
     }
 
     return res.status(500).json({
       message: "Erro interno",
-      erro: error,
+      details: error,
     })
   }
 
