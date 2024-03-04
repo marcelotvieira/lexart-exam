@@ -11,7 +11,7 @@ export function verificarToken(token) {
     const decoded = jwt.verify(token, secret);
     return decoded
   } catch (error) {
-    console.error('Não autorizado', error);
+    console.error('Erro ao verificar o token:', error);
     return null;
   }
 }
