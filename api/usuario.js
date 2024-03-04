@@ -3,21 +3,16 @@ import e from 'express'
 import rescue from 'express-rescue'
 import { UsuarioController } from '../modules/controllers/usuario'
 import { ApiError } from '../modules/error/ApiError'
-
-export const config = {
-  api: {
-    externalResolver: true,
-  },
-}
+import { validateActionMiddleware } from '../modules/middlewares/validateAction'
 
 const app = e()
 app.use(bodyParser.json())
 
-// statics
-app.all(
-  '/api/usuario',
+app.post(
+  '/api/usuario', // ?action=<register | signin>
+  validateActionMiddleware,
   rescue((req, res) =>
-    UsuarioController[req.method.toLowerCase()](req, res)
+    UsuarioController[req.query.action](req, res)
   ))
 
 app.use(ApiError.handler)
