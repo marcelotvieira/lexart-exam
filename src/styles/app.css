@@ -1,0 +1,17 @@
+.signin-form {
+  background-color: rgb(var(--callout-rgb));
+  padding: 2rem 1rem;
+  border-radius: 0.5rem;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  min-width: 320px;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 90%;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+}/*# sourceMappingURL=app.css.map */

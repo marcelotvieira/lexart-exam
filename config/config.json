@@ -4,7 +4,9 @@
     "password": "example_password",
     "database": "database_development",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "migrationStorageDirectory": "data/migrations",
+    "seedStorageDirectory": "data/seeders"
   },
   "test": {
     "username": "root",

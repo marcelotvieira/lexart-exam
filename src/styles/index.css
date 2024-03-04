@@ -7,6 +7,8 @@
 :root {
   --background-start-rgb: 245, 245, 245;
   --background-end-rgb: 245, 245, 255;
+  --callout-rgb: 255, 255, 255;
+  --callout-border-rgb: 200, 200, 200;
   --foreground-rgb: 30, 30, 30;
   --font-family: sans-serif;
 }
@@ -15,8 +17,38 @@
   font-family: var(--font-family);
 }
 
+input,
+button {
+  border: 1px solid rgb(var(--callout-border-rgb));
+  border-radius: 0.2rem;
+  padding: 0.8rem 0.6rem;
+  outline: none;
+}
+
 body {
   min-height: 100vh;
   background: linear-gradient(to bottom, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
   color: rgb(var(--foreground-rgb));
+}
+
+.flex {
+  display: flex;
+}
+.flex.gap1 {
+  gap: 1rem;
+}
+.flex.gap2 {
+  gap: 2rem;
+}
+.flex.gap05 {
+  gap: 0.5rem;
+}
+.flex.columned {
+  flex-direction: column;
+}
+.flex.justified-center {
+  justify-content: center;
+}
+.flex.aligned-center {
+  align-items: center;
 }/*# sourceMappingURL=index.css.map */

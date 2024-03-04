@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
+import { Sequelize } from 'sequelize';
 
 export class ApiError extends Error {
   message;
@@ -14,13 +15,21 @@ export class ApiError extends Error {
   static handler(error, _req, res, _next) {
     if (error instanceof ApiError) {
       return res.status(error.statusCode).json({
-        message: error,
+        message: "Erro",
         details: error.message
       })
     }
 
+    if (error instanceof Sequelize.Error) {
+      console.log(error)
+      return res.status(400).json({
+        message: 'Erro',
+        details: error.errors[0].message
+      })
+    }
+
     return res.status(500).json({
-      message: "Erro interno",
+      message: "Erro",
       details: error,
     })
   }
