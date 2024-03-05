@@ -21,7 +21,6 @@ export class ApiError extends Error {
     }
 
     if (error instanceof Sequelize.Error) {
-      console.log(error)
       return res.status(400).json({
         message: 'Erro',
         details: error.errors[0].message

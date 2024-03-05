@@ -12,5 +12,18 @@
   width: fit-content;
   max-width: 90%;
   max-height: fit-content;
+}
 
+.main-header {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .main-sider {
+    display: none;
+  }
+
+  .main-header {
+    display: block;
+  }
 }

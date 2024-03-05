@@ -18,6 +18,7 @@ export default function FlexCardWithLogo({ children, extraLink }) {
 
       <div className="flex columned aligned-center gap2" style={{ margin: '2rem' }}>
         <Image
+          preview={false}
           width={160}
           height={160}
           src="/assets/images/fallImage.png"

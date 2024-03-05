@@ -1,9 +1,10 @@
+import MainLayout from "../Components/MainLayout";
+
 export default function Products() {
   return (
-    <div>
-      <h1>Produtos</h1>
-      <a href="/">Home</a>
-    </div>
-    
+    <MainLayout>
+      Products
+    </MainLayout>
+
   )
 }

@@ -5,11 +5,12 @@
 }
 
 :root {
+  --callout-soft-rgb: 244, 244, 250;
   --background-start-rgb: 245, 245, 245;
   --background-end-rgb: 245, 245, 255;
   --callout-rgb: 255, 255, 255;
   --callout-border-rgb: 200, 200, 200;
-  --foreground-rgb: 30, 30, 30;
+  --foreground-rgb: 30, 30, 200;
   --font-family: sans-serif;
 }
 
@@ -28,11 +29,13 @@ button {
 body {
   min-height: 100vh;
   background: linear-gradient(to bottom, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
-  color: rgb(var(--foreground-rgb));
 }
 
 .flex {
   display: flex;
+}
+.flex.wrappable {
+  flex-wrap: wrap;
 }
 .flex.gap1 {
   gap: 1rem;
@@ -51,4 +54,16 @@ body {
 }
 .flex.aligned-center {
   align-items: center;
+}
+
+.pd1 {
+  padding: 1rem;
+}
+
+.pd2 {
+  padding: 2rem;
+}
+
+.pd3 {
+  padding: 3rem;
 }/*# sourceMappingURL=index.css.map */
