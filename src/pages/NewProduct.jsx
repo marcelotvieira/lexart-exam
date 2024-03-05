@@ -1,10 +1,10 @@
 import MainLayout from "../Components/MainLayout";
 
-export default function Products() {
+export default function NewProduct() {
   return (
     <MainLayout>
-      Products
-    </MainLayout>
 
+      New Product
+    </MainLayout>
   )
 }

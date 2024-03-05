@@ -1,16 +1,34 @@
+import { BarsOutlined, PlusCircleFilled } from "@ant-design/icons"
 import { Button } from "antd"
-import { useAuth } from "./Components/AuthProvider"
-import AuthWrapper from "./Components/ProtectedWrapper"
+import MainLayout from "./Components/MainLayout"
 
 export default function App() {
-  const { logout } = useAuth()
+
   return (
-    <AuthWrapper>
-      <div>
-        <h1>Root</h1>
-        <a href="/products">Produtos</a>
-        <Button onClick={logout} type="primary">Sair</Button>
+    <MainLayout>
+      <div className="flex wrappable gap1 justified-center aligned-center">
+        {[
+          {
+            label: "Produtos",
+            href: "/Products",
+            icon: <BarsOutlined />
+          },
+          {
+            label: "Novo Produto",
+            href: "/Products/new",
+            icon: <PlusCircleFilled />
+          },
+        ].map((i) => (
+          <Button
+            type="default"
+            className="pd3"
+            href={i.href}
+            icon={i.icon}
+            style={{ flex: 1, height: 'fit-content' }}
+          > {i.label}
+          </Button>
+        ))}
       </div>
-    </AuthWrapper>
+    </MainLayout>
   )
 }
