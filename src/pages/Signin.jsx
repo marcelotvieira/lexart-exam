@@ -1,18 +1,15 @@
 import { Button, Form, Input } from "antd";
-import { useState } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../Components/AuthProvider";
 import FlexCardWithLogo from "../Components/FlexCardWithLogo";
 
 export default function Signin() {
-  const { isLoggedIn, login } = useAuth()
+  const { isLoggedIn, login, authLoading, setAuthLoading } = useAuth()
   const location = useLocation()
-  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (values) => {
-    setLoading(true)
+    setAuthLoading(true)
     await login(values)
-    setLoading(false)
   }
 
   if (isLoggedIn)
@@ -52,7 +49,7 @@ export default function Signin() {
         ))}
 
         <Button
-          loading={loading}
+          loading={authLoading}
           style={{ width: '100%' }}
           size="large"
           type="primary"
