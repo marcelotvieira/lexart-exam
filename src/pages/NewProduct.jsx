@@ -8,7 +8,6 @@ import MainLayout from "../Components/MainLayout";
 import { createProduct } from "../actions";
 
 export default function NewProduct() {
-  const [variants, setVariants] = useState([{ price: '', color: '' }]);
   const [loading, setLoading] = useState(false)
   const [api, holder] = useNotification()
   const [form] = Form.useForm();
@@ -24,7 +23,6 @@ export default function NewProduct() {
   const readResult = (res, data) => {
     if (!res.ok) return api.error({ description: data.details })
     form.resetFields()
-    setVariants([{ price: '', color: '' }])
     api.success({ description: 'Produto cadastrado' })
   }
 
@@ -40,7 +38,7 @@ export default function NewProduct() {
             onFinish={handleFormSubmit}
           >
             <div className="flex wrappable gap2">
-              <div style={{ flex: 1, minWidth: 200 }}>
+              <div style={{ flex: 1, minWidth: 240 }}>
                 <Form.Item
                   label="Nome"
                   name="name"
@@ -71,7 +69,7 @@ export default function NewProduct() {
                   Salvar
                 </Button>
               </div>
-              <div style={{ flex: 1, minWidth: 300 }}>
+              <div style={{ flex: 1, minWidth: 240 }}>
 
 
                 <Form.List
