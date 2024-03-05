@@ -8,11 +8,12 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get('authToken'));
   const [messageApi, holder] = message.useMessage()
-
+  const [authLoading, setAuthLoading] = useState(false)
 
   const login = async (payload) => {
     const user = await signin(payload)
     const jsonData = await user.json()
+    setAuthLoading(false)
     if (!user.ok) return messageApi.open({
       type: 'error',
       content: jsonData.details
@@ -31,7 +32,9 @@ export const AuthProvider = ({ children }) => {
       isLoggedIn,
       login,
       logout,
-      messageApi
+      messageApi,
+      authLoading,
+      setAuthLoading,
     }}>
       {holder}
       {children}
