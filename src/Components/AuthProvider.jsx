@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import Cookies from 'js-cookie';
 import React, { createContext, useContext, useState } from 'react';
 import { signin } from '../actions';
@@ -6,13 +7,16 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get('authToken'));
-  const [authErr, setAuthErr] = useState(null)
+  const [messageApi, holder] = message.useMessage()
 
 
   const login = async (payload) => {
     const user = await signin(payload)
     const jsonData = await user.json()
-    if (!user.ok) return setAuthErr(jsonData.details)
+    if (!user.ok) return messageApi.open({
+      type: 'error',
+      content: jsonData.details
+    })
     Cookies.set('authToken', jsonData.token);
     setIsLoggedIn(true);
   };
@@ -27,8 +31,9 @@ export const AuthProvider = ({ children }) => {
       isLoggedIn,
       login,
       logout,
-      authErr,
+      messageApi
     }}>
+      {holder}
       {children}
     </AuthContext.Provider>
   );

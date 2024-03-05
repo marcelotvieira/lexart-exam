@@ -1,4 +1,3 @@
-import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { useState } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
@@ -6,9 +5,8 @@ import { useAuth } from "../Components/AuthProvider";
 import FlexCardWithLogo from "../Components/FlexCardWithLogo";
 
 export default function Signin() {
-  const { isLoggedIn, login, authErr } = useAuth()
+  const { isLoggedIn, login } = useAuth()
   const location = useLocation()
-
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (values) => {
@@ -21,7 +19,6 @@ export default function Signin() {
     return <Navigate to="/" state={{ from: location }} replace />
 
   return (
-
     <FlexCardWithLogo
       extraLink={
         <p style={{ textAlign: 'center' }}>
@@ -33,15 +30,6 @@ export default function Signin() {
         onFinish={handleSubmit}
         layout="vertical"
       >
-        {
-          authErr &&
-          <Form.Item>
-            <p style={{ textAlign: 'center', color: 'red' }}>
-              <ExclamationCircleFilled /> {authErr}
-            </p>
-          </Form.Item>
-        }
-
         {[
           { name: 'email', placeholder: 'Email', type: 'email' },
           { name: 'senha', placeholder: 'Senha', type: 'password' }

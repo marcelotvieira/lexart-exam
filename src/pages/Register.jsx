@@ -1,4 +1,3 @@
-import { CheckCircleFilled, ExclamationCircleFilled } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { useState } from "react";
@@ -8,26 +7,22 @@ import FlexCardWithLogo from "../Components/FlexCardWithLogo";
 import { register } from "../actions";
 
 export default function Register() {
-  const { isLoggedIn } = useAuth()
+  const { isLoggedIn, messageApi } = useAuth()
   const location = useLocation()
 
+
   const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState(null)
   const [form] = useForm()
 
   const readResult = (res, data) => {
-    if (!res.ok) return setMessage({
-      icon: <ExclamationCircleFilled />,
-      text: data.details,
-      color: 'red',
+    console.log(data)
+    if (!res.ok) return messageApi.open({
+      type: 'error',
+      content: data.details,
     })
-    setMessage({
-      icon: <CheckCircleFilled />,
-      text: <>
-        Usuário cadastrado!
-        <Link style={{ fontWeight: 600 }} to="/Signin">Login</Link>
-      </>,
-      color: 'green',
+    messageApi.open({
+      type: 'success',
+      content: 'Cadastro realizado com sucesso!'
     })
     form.resetFields()
   }
@@ -48,7 +43,6 @@ export default function Register() {
     />
 
   return (
-
     <FlexCardWithLogo
       extraLink={
         <p style={{ textAlign: 'center' }}>
@@ -62,14 +56,6 @@ export default function Register() {
         onFinish={handleSubmit}
         layout="vertical"
       >
-        {
-          message &&
-          <Form.Item>
-            <p style={{ textAlign: 'center', color: message.color }}>
-              {message.icon} {message.text}
-            </p>
-          </Form.Item>
-        }
 
         {[
           { name: 'nome', placeholder: 'Nome', type: 'text' },
