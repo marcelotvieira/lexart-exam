@@ -7,6 +7,6 @@ export class ProdutoController {
     const newProduct = await Produto.create(payload, {
       include: [Data]
     })
-    res.status(201).json(newProduct)
+    return res.status(201).json(newProduct)
   }
 }
