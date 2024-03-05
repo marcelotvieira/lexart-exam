@@ -38,7 +38,7 @@ export default function MainLayout({ children }) {
               <MenuOutlined />
             </Button>
           </Header>
-          <Content flo className="pd1">
+          <Content className="pd1">
             <div >{children}</div>
           </Content>
         </Layout>

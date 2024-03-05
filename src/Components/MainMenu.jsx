@@ -19,7 +19,7 @@ const items = [
       },
       {
         label: <Link to="/Products">Listar</Link>,
-        key: "newProduct",
+        key: "products-child",
       },
     ]
   }
@@ -27,7 +27,7 @@ const items = [
 
 export default function MainMenu() {
   return (
-    <div class="flex columned gap2 aligned-center pd1">
+    <div className="flex columned gap2 aligned-center pd1">
       <Image
         preview={false}
         width={100}

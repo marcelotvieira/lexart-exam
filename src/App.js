@@ -18,8 +18,9 @@ export default function App() {
             href: "/Products/new",
             icon: <PlusCircleFilled />
           },
-        ].map((i) => (
+        ].map((i, index) => (
           <Button
+            key={index}
             type="default"
             className="pd3"
             href={i.href}
