@@ -14,6 +14,7 @@ export default function NewProduct() {
 
   const handleFormSubmit = async (values) => {
     setLoading(true)
+    console.log(values)
     const newProduct = await createProduct(values)
     const data = await newProduct.json()
     setLoading(false)
@@ -75,7 +76,7 @@ export default function NewProduct() {
                 <Form.List
                   initialValue={[{}]}
                   label="Variações"
-                  name="Data"
+                  name="data"
                   rules={[
                     {
                       validator: async (_, Data) => {
@@ -97,7 +98,7 @@ export default function NewProduct() {
                             name={[name, 'price']}
                             rules={[{ required: true, message: 'Informe o preço' }]}
                           >
-                            <Input placeholder="Preço" />
+                            <Input placeholder="Preço" type="number" />
                           </Form.Item >
                           <Form.Item
                             {...restField}
