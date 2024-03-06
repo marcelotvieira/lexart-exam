@@ -21,7 +21,7 @@ export default function MainLayout({ children }) {
         <MainMenu />
       </Drawer>
 
-      <Layout style={{ width: '100%', height: '100vh' }}>
+      <Layout style={{ width: '100%', height: '100vh', background: 'none' }}>
         <Sider
           className="main-sider"
           width="fit-content"
@@ -30,7 +30,9 @@ export default function MainLayout({ children }) {
           <MainMenu />
         </Sider>
 
-        <Layout>
+        <Layout
+          style={{ background: 'none' }}
+        >
           <Header
             className="main-header"
             style={{ width: '100%', backgroundColor: 'rgb(var(--callout-rgb)', padding: '0 1rem' }}
@@ -38,6 +40,7 @@ export default function MainLayout({ children }) {
               <MenuOutlined />
             </Button>
           </Header>
+
           <Content className="pd1">
             <div >{children}</div>
           </Content>
