@@ -34,26 +34,32 @@ export class ProdutoController {
   }
 
   static async get(req, res) {
-    const { nome, marca } = req.query
+    const { nome, marca, page } = req.query;
 
-    const where = {
-      ...(nome && { name: { [Op.iLike]: `%${nome}%` } }),
-      ...(marca && { brand: marca }),
-    };
+    const where = {};
+    if (nome) where.name = { [Op.iLike]: `%${nome}%` };
+    if (marca) where.brand = marca;
 
-    const rows = await Produto.findAll({
-      where,
-      include: [Data]
-    })
+    const limit = 6;
+    const offset = page ? (Number(page) - 1) * limit : 0;
 
-    const brandsSet = await Produto.findAll({
-      attributes: ['brand'],
-      group: ['brand']
-    });
+    const [rows, totalCount, brandsSet] = await Promise.all([
+      Produto.findAll({
+        where,
+        include: [Data],
+        offset,
+        limit,
+      }),
+      Produto.count({ where }),
+      Produto.findAll({
+        attributes: ['brand'],
+        group: ['brand']
+      })
+    ]);
 
-    res.status(200).json({
-      products: rows,
-      brands: brandsSet.map(item => item.brand),
-    })
+    const brands = brandsSet.map(item => item.brand);
+
+    return res.status(200).json({ products: rows, brands, total: totalCount });
   }
+
 }
