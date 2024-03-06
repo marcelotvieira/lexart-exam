@@ -46,6 +46,14 @@ export class ProdutoController {
       include: [Data]
     })
 
-    res.status(200).json(rows)
+    const brandsSet = await Produto.findAll({
+      attributes: ['brand'],
+      group: ['brand']
+    });
+
+    res.status(200).json({
+      products: rows,
+      brands: brandsSet.map(item => item.brand),
+    })
   }
 }

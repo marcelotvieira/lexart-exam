@@ -26,3 +26,11 @@ export const createProduct = async (payload) => await fetch(
     body: JSON.stringify(payload)
   }
 )
+
+export const getProducts = async (params) => await fetch(
+  `/api/produto?${(new URLSearchParams(params)).toString()}`,
+  {
+    method: 'GET',
+    headers: baseHeaders,
+  }
+)
