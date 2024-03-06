@@ -1,3 +1,4 @@
+import { Op } from "sequelize"
 import { Data, Produto } from "../models/produto"
 
 export class ProdutoController {
@@ -30,5 +31,29 @@ export class ProdutoController {
       include: [Data]
     })
     return res.status(201).json(newProduct)
+  }
+
+  static async get(req, res) {
+    const { nome, marca } = req.query
+
+    const where = {
+      ...(nome && { name: { [Op.iLike]: `%${nome}%` } }),
+      ...(marca && { brand: marca }),
+    };
+
+    const rows = await Produto.findAll({
+      where,
+      include: [Data]
+    })
+
+    const brandsSet = await Produto.findAll({
+      attributes: ['brand'],
+      group: ['brand']
+    });
+
+    res.status(200).json({
+      products: rows,
+      brands: brandsSet.map(item => item.brand),
+    })
   }
 }
