@@ -8,13 +8,18 @@ import { validateProductSchemas } from '../modules/middlewares/validateSchemas'
 const app = e()
 app.use(bodyParser.json())
 
-app.all(
+app.post(
   '/api/produto',
   validateProductSchemas,
-  // validateActionMiddleware,
   rescue((req, res) =>
-    ProdutoController[req.method.toLowerCase()](req, res)
+    ProdutoController.post(req, res)
   ))
+
+app.get(
+  '/api/produto',
+  ((req, res) =>
+    ProdutoController.get(req, res))
+)
 
 app.use(ApiError.handler)
 
