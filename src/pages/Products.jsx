@@ -20,7 +20,10 @@ export default function Products() {
 
   const handleSubmit = (values) => {
     const { nome, marca } = values;
-    const qString = new URLSearchParams({ marca: marca || '', nome: nome || '' }).toString();
+    const qString = new URLSearchParams({
+      marca: marca || '',
+      nome: nome || '',
+    }).toString();
     return navigate(`?${qString}`, { replace: true });
   };
 
@@ -46,10 +49,19 @@ export default function Products() {
   return (
     <MainLayout>
       <div className="flex gap1 wrappable">
-        <Card size="small" style={{ flex: 1, minWidth: 280 }} loading={!brands}>
+        <Card
+          size="small"
+          style={{ flex: 1, minWidth: 300 }}
+          loading={!brands}
+        >
           <Form form={form} onFinish={handleSubmit} layout="vertical">
             <Form.Item name="nome" label="Pesquisa">
-              <Input.Search onSearch={form.submit} enterButton name="nome" type="text" />
+              <Input.Search
+                onSearch={form.submit}
+                enterButton
+                name="nome"
+                type="text"
+              />
             </Form.Item>
             <Form.Item name="marca" label="Filtrar por marca">
               <Select
@@ -66,8 +78,15 @@ export default function Products() {
           </Form>
         </Card>
 
-        <Card title="Produtos" size="small" style={{ flex: 3, minWidth: 280 }} loading={!products}>
+        <Card
+          title="Produtos"
+          size="small"
+          style={{ flex: 3, minWidth: 300 }}
+          loading={!products}
+        >
           <List
+
+            style={{ maxHeight: '90vh', overflow: 'auto' }}
             size="small"
             pagination={{
               current: currentPage,
