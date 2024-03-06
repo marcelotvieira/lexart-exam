@@ -12,10 +12,3 @@ export const usuarioSchemas = {
   })
 }
 
-export function validateAction(action, data) {
-  const { error, value } = usuarioSchemas[action].validate(data);
-  if (error) {
-    throw new Error({ message: error.details[0].message });
-  }
-  return value;
-}
