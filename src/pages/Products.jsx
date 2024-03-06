@@ -7,96 +7,85 @@ import { ProductItem } from "../Components/ProductItem";
 import { getProducts } from "../actions";
 
 export default function Products() {
-  const [loading, setLoading] = useState(false)
-  const [searchParams] = useSearchParams()
-  const [products, setProducts] = useState([])
-  const [brands, setBrands] = useState()
-  const navigate = useNavigate()
-  const [form] = useForm()
+  const [searchParams] = useSearchParams();
+  const [products, setProducts] = useState([]);
+  const [brands, setBrands] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(1);
+  const navigate = useNavigate();
+  const [form] = useForm();
 
-
-  const nome = searchParams.get('nome')
-  const marca = searchParams.get('marca')
+  const nome = searchParams.get('nome') || '';
+  const marca = searchParams.get('marca') || '';
 
   const handleSubmit = (values) => {
-    const nome = values.nome ?? '';
-    const marca = values.marca ?? '';
-    const qString = new URLSearchParams({ marca, nome }).toString()
-    console.log(qString)
-    return navigate(`?${qString}`, { replace: true })
-  }
-
+    const { nome, marca } = values;
+    const qString = new URLSearchParams({ marca: marca || '', nome: nome || '' }).toString();
+    return navigate(`?${qString}`, { replace: true });
+  };
 
   useEffect(() => {
-    setProducts(null)
+    setProducts(null);
     const getData = async () => {
-      const params = {
-        nome: nome || '',
-        marca: marca || '',
-      }
-      const products = await getProducts(params);
-      if (!products.ok) return //TODO
-      const data = await products.json()
-      setProducts(data.products);
-      setBrands(data.brands)
-    }
-    getData()
-  }, [nome, marca])
+      const params = { nome, marca, page: currentPage };
+      const productsResponse = await getProducts(params);
+      if (!productsResponse.ok) return;
+      const { products, brands, total } = await productsResponse.json();
+      setProducts(products);
+      setBrands(brands);
+      setTotalItems(total);
+    };
+    getData();
+  }, [nome, marca, currentPage]);
 
+  useEffect(() => {
+    const pageParam = parseInt(searchParams.get('page'), 10) || 1;
+    setCurrentPage(pageParam);
+  }, [searchParams]);
 
   return (
     <MainLayout>
       <div className="flex gap1 wrappable">
         <Card size="small" style={{ flex: 1, minWidth: 280 }} loading={!brands}>
-          <Form
-            form={form}
-            onFinish={handleSubmit}
-            layout="vertical"
-          >
-            <Form.Item id="nome" name="nome" label="Pesquisa">
-              <Input.Search onSearch={() => form.submit()} enterButton name="nome" type="text" />
+          <Form form={form} onFinish={handleSubmit} layout="vertical">
+            <Form.Item name="nome" label="Pesquisa">
+              <Input.Search onSearch={form.submit} enterButton name="nome" type="text" />
             </Form.Item>
-            <Form.Item
-              name="marca"
-              label="Filtrar por marca"
-            >
+            <Form.Item name="marca" label="Filtrar por marca">
               <Select
                 defaultValue=""
-                onChange={() => form.submit()}
+                onChange={form.submit}
                 placeholder="Selecione a marca."
                 loading={!brands}
-                options={brands && [
-                  {
-                    label: 'Todas',
-                    value: '',
-                  },
-                  ...brands.map((b) => ({
-                    label: b,
-                    value: b
-                  }))]} />
+                options={[
+                  { label: 'Todas', value: '' },
+                  ...(brands ? brands.map(b => ({ label: b, value: b })) : [])
+                ]}
+              />
             </Form.Item>
-
           </Form>
         </Card>
 
         <Card title="Produtos" size="small" style={{ flex: 3, minWidth: 280 }} loading={!products}>
           <List
-            bordered
-            pagination
-            style={{ maxHeight: '90vh', overflowY: 'scroll' }}
-          >
-            {products && products.length > 0 ? products.map((p) => (
-              <List.Item style={{ borderBottom: '.5rem solid rgb(var(--callout-soft-rgb))' }}>
-                <ProductItem product={p} />
+            size="small"
+            pagination={{
+              current: currentPage,
+              pageSize: 6,
+              total: totalItems,
+              onChange: setCurrentPage,
+              showSizeChanger: false,
+            }}
+            dataSource={products}
+            renderItem={product => (
+              <List.Item style={{ borderBottom: '1px solid lightgray' }}>
+                <ProductItem product={product} />
               </List.Item>
-
-            )) :
-              <Empty description="Sem resultados" />
-            }
-          </List>
+            )}
+            locale={{ emptyText: <Empty description="Sem resultados" /> }}
+          />
         </Card>
       </div>
     </MainLayout>
-
-  )
+  );
 }
