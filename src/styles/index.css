@@ -6,8 +6,8 @@
 
 :root {
   --callout-soft-rgb: 244, 244, 250;
-  --background-start-rgb: 245, 245, 245;
-  --background-end-rgb: 245, 245, 255;
+  --background-start-rgb: 230, 230, 245;
+  --background-end-rgb: 240, 240, 245;
   --callout-rgb: 255, 255, 255;
   --callout-border-rgb: 200, 200, 200;
   --foreground-rgb: 30, 30, 200;
