@@ -1,11 +1,12 @@
+import bodyParser from 'body-parser'
 import e from 'express'
 import rescue from 'express-rescue'
 import { ProdutoController } from '../modules/controllers/produto'
 import { ApiError } from '../modules/error/ApiError'
-import { validateProductSchemas } from '../modules/middlewares/validateAction'
+import { validateProductSchemas } from '../modules/middlewares/validateSchemas'
 
 const app = e()
-// app.use(bodyParser.json())
+app.use(bodyParser.json())
 
 app.all(
   '/api/produto',
