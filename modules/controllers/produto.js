@@ -25,6 +25,15 @@ export class ProdutoController {
     return { ...data, Data: data.data, data: undefined }
   }
 
+  static async put({ params, body, schema }, res) {
+    const payload = this[schema](body)
+    const product = await Produto.findByPk(Number(params.id), { include: [Data] })
+    product.update(payload, {
+      include: [Data]
+    })
+    res.json(product)
+  }
+
   static async post(req, res) {
     const payload = this[req.schema](req.body)
     const newProduct = await Produto[req.schema === 'struct3' ? 'bulkCreate' : 'create'](payload, {
