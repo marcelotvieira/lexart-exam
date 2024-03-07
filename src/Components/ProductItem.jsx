@@ -1,7 +1,13 @@
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
-import { Badge, Button, Collapse, Descriptions, Table } from "antd";
+import { Badge, Button, Collapse, Descriptions, Popconfirm, Table } from "antd";
+import { deleteProduct } from "../actions";
 
 export function ProductItem({ product }) {
+  const handleDelete = async () => {
+    await deleteProduct(product.id)
+    window.location.reload()
+  }
+
   return (
     <Descriptions>
       <Descriptions.Item label="Nome">{product.name}</Descriptions.Item>
@@ -10,7 +16,15 @@ export function ProductItem({ product }) {
       <Descriptions.Item label="Gerenciar">
         <div className="flex aligned-center gap1">
           <Button href={`/products/update/${product.id}`} icon={<EditFilled />} />
-          <Button icon={<DeleteFilled />} />
+          <Popconfirm
+            onConfirm={handleDelete}
+            description="Excluir o item e suas variações?"
+            okText="Excluir"
+            cancelText="Cancelar"
+          >
+
+            <Button icon={<DeleteFilled />} />
+          </Popconfirm>
         </div>
       </Descriptions.Item>
 

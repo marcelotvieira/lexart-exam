@@ -2,8 +2,7 @@ import { Op } from "sequelize"
 import { ApiError } from "../error/ApiError"
 import { Data, Produto } from "../models/produto"
 
-export class ProdutoController {
-
+export class ProcessProduto {
   static struct1(data) {
     return { ...data, Data: [{ price: data.price, color: data.color }] }
   }
@@ -25,7 +24,10 @@ export class ProdutoController {
   static struct0(data) {
     return { ...data, Data: data.data, data: undefined }
   }
+}
+export class ProdutoController {
 
+  //PUT
   static async put({ params, body, schema }, res) {
     const payload = { ...body, Data: body.data, data: undefined }
     try {
@@ -58,20 +60,33 @@ export class ProdutoController {
   }
 
 
+  //POST
   static async post(req, res) {
-    const payload = this[req.schema](req.body)
+    const payload = ProcessProduto[req.schema](req.body)
     const newProduct = await Produto[req.schema === 'struct3' ? 'bulkCreate' : 'create'](payload, {
       include: [Data]
     })
     return res.status(201).json(newProduct)
   }
 
+  //DELETE
+  static async delete({ params }, res) {
+    if (!params.id) return ApiError.badRequest("Id inválido")
+    const destroyed = await Produto.destroy({
+      where: { id: Number(params.id) }
+    })
+    if (destroyed < 1) return ApiError.notFound("Produto não encontrado")
+    return res.status(204).send()
+  }
+
+  //GET:id
   static async getOne({ params }, res) {
     const product = await Produto.findByPk(Number(params.id), { include: [Data] })
     if (!product) return ApiError.badRequest("Produto não encontrado")
     return res.status(200).json(product)
   }
 
+  //GET
   static async get(req, res) {
     const { nome, marca, page } = req.query;
 
