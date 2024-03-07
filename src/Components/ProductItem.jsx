@@ -9,12 +9,12 @@ export function ProductItem({ product }) {
   }
 
   return (
-    <Descriptions>
+    <Descriptions layout="vertical">
       <Descriptions.Item label="Nome">{product.name}</Descriptions.Item>
       <Descriptions.Item label="Marca">{product.brand}</Descriptions.Item>
       <Descriptions.Item label="Modelo">{product.model}</Descriptions.Item>
       <Descriptions.Item label="Gerenciar">
-        <div className="flex aligned-center gap1">
+        <div className="flex wrappable aligned-center gap05">
           <Button href={`/products/update/${product.id}`} icon={<EditFilled />} />
           <Popconfirm
             onConfirm={handleDelete}
