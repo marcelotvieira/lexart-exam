@@ -10,7 +10,7 @@ export default function App() {
         {[
           {
             label: "Produtos",
-            href: "/Products",
+            href: "/",
             icon: <BarsOutlined />
           },
           {
