@@ -1,4 +1,5 @@
 import { Op } from "sequelize"
+import { ApiError } from "../error/ApiError"
 import { Data, Produto } from "../models/produto"
 
 export class ProdutoController {
@@ -25,12 +26,50 @@ export class ProdutoController {
     return { ...data, Data: data.data, data: undefined }
   }
 
+  static async put({ params, body, schema }, res) {
+    const payload = { ...body, Data: body.data, data: undefined }
+    try {
+      const product = await Produto.findByPk(Number(params.id), { include: Data });
+
+      if (!product) {
+        return res
+          .status(404)
+          .json({ success: false, message: 'Produto não encontrado.' });
+      }
+      await product.update({
+        name: payload.name,
+        brand: payload.brand,
+        model: payload.model
+      });
+
+      await Data.destroy({ where: { ProdutoId: product.id } });
+
+      if (payload.Data && payload.Data.length > 0) {
+        await Promise.all(payload.Data.map(async (variation) => {
+          await Data.create({ ...variation, ProdutoId: product.id });
+        }));
+      }
+
+      return res.status(200).json({ message: 'UPDATED', detials: 'Produto atualizado com sucesso.' });
+    } catch (error) {
+      console.error('Erro ao atualizar o produto:', error);
+      return res.status(500).json({ message: 'Erro', details: error });
+    }
+  }
+
+
   static async post(req, res) {
     const payload = this[req.schema](req.body)
     const newProduct = await Produto[req.schema === 'struct3' ? 'bulkCreate' : 'create'](payload, {
       include: [Data]
     })
     return res.status(201).json(newProduct)
+  }
+
+  static async getOne({ params }, res) {
+    const product = await Produto.findByPk(Number(params.id), { include: [Data] })
+    if (!product) return ApiError.badRequest("Produto não encontrado")
+    return res.status(200).json(product)
   }
 
   static async get(req, res) {
