@@ -34,3 +34,20 @@ export const getProducts = async (params) => await fetch(
     headers: baseHeaders,
   }
 )
+
+export const getProductDetails = async (id) => await fetch(
+  `/api/produto/${Number(id)}`,
+  {
+    method: 'GET',
+    headers: baseHeaders,
+  }
+)
+
+export const updateProduct = async (id, payload) => await fetch(
+  `/api/produto/${Number(id)}`,
+  {
+    method: 'PUT',
+    headers: baseHeaders,
+    body: JSON.stringify(payload)
+  }
+)
