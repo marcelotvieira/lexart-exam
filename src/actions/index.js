@@ -61,6 +61,6 @@ export const deleteProduct = async (id) => await fetch(
   {
     method: 'DELETE',
     headers: baseHeaders,
-    body: {}
+    // body: {}
   }
 )
