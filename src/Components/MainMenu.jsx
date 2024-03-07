@@ -1,4 +1,4 @@
-import { HomeFilled, LogoutOutlined, ProductOutlined } from "@ant-design/icons";
+import { LogoutOutlined, ProductOutlined } from "@ant-design/icons";
 import { Image, Menu } from "antd";
 import { Link } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
@@ -6,11 +6,6 @@ import { useAuth } from "./AuthProvider";
 export default function MainMenu() {
   const { logout } = useAuth()
   const items = [
-    {
-      label: <Link to="/">Início</Link>,
-      key: "home",
-      icon: <HomeFilled />,
-    },
     {
       label: "Produtos",
       key: "products",
@@ -21,7 +16,7 @@ export default function MainMenu() {
           key: "newProduct",
         },
         {
-          label: <Link to="/Products">Listar</Link>,
+          label: <Link to="/">Listar</Link>,
           key: "products-child",
         },
       ]

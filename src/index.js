@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthProvider } from './Components/AuthProvider';
 
 import { ConfigProvider } from 'antd';
-import App from './App';
 import NewProduct from './pages/NewProduct';
 import Products from './pages/Products';
 import Register from './pages/Register';
@@ -18,7 +17,7 @@ import { theme } from './theme/themeConfig';
 const router = createBrowserRouter([
   {
     path: '/', //root,
-    element: <App />,
+    element: <Products />,
   },
   {
     path: '/signin',
@@ -27,10 +26,6 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />
-  },
-  {
-    path: '/products',
-    element: <Products />
   },
   {
     path: '/products/new',
