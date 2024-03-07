@@ -51,3 +51,12 @@ export const updateProduct = async (id, payload) => await fetch(
     body: JSON.stringify(payload)
   }
 )
+
+export const deleteProduct = async (id) => await fetch(
+  `/api/produto/${Number(id)}`,
+  {
+    method: 'DELETE',
+    headers: baseHeaders,
+    body: {}
+  }
+)

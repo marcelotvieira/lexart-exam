@@ -21,6 +21,12 @@ app.get(
     ProdutoController.getOne(req, res)
   ))
 
+app.delete(
+  '/api/produto/:id',
+  rescue((req, res) =>
+    ProdutoController.delete(req, res)
+  ))
+
 
 
 app.use(ApiError.handler)
