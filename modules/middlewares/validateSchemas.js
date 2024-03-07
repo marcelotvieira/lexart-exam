@@ -16,3 +16,13 @@ export function validateProductSchemas(req, res, next) {
     details: errors,
   });
 }
+
+export function validateProductUpdateSchemas(req, res, next) {
+  const { error } = produtoSchemas.struct0.validate(req.body);
+  if (!error)
+    return next()
+  return res.status(400).json({
+    message: 'Erro',
+    details: error.message,
+  });
+}
