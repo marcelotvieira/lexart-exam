@@ -1,4 +1,8 @@
-const baseHeaders = { 'Content-Type': 'application/json' }
+import Cookies from "js-cookie"
+
+const token = Cookies.get('authToken')
+const baseHeaders = { 'Content-Type': 'application/json', 'Authorization': token }
+
 
 export const signin = async (payload) => await fetch(
   '/api/usuario?action=signin',
